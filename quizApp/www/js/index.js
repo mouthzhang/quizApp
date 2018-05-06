@@ -19,7 +19,7 @@
 var phoneid=null;//设备号
 var app = {
     // Application Constructor
-    initialize: function() {
+    initialise: function() {
         this.bindEvents();
     },
     // Bind Event Listeners
