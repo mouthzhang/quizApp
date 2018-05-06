@@ -21,7 +21,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <title>Quiz App</title>
+    <title>Material Design Lite</title>
 
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -48,77 +48,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-light_blue.min.css">
     <link rel="stylesheet" href="styles.css">
-    <style>
-     .poplayer
-	 {
-	 	height: 100%;  
-	    width: 100%;  
-	    position: absolute;  
-	    top: 0px;  
-	    bottom: 0px;  
-	    z-index: 999;  
-		overflow:hidden; word-break:break-all;
-		display: none;
-	
-	 }
-	 .popwindow
-	 {
-	 	background-color: #FFF;
-		width: 70%;
-		height: auto;
-		border-radius: 4px;
-		overflow: hidden;
-		margin:0 auto;
-		margin-top:100px;
-		padding:30px;
-
-	 }
-	 .optiondiv
-	 {
-	 	padding:5px;
-	 }
-	 .button
-    	{
-    		color: white;
-    		cursor: pointer;
-    		padding:10px 20px;
-    		border-radius: 2px;
-    		background: rgb(76, 171, 255);
-    	}
-    	.button:hover {
-		background: rgb(78, 200, 255);
-	}
-	.font-red
-	{
-		color:red;
-	}
-	.font-green
-	{
-		color:green;
-	}
-	.font-black
-	{
-		color:black;
-	}
-	#button_ok{
-		display: none;
-		float: inherit;
-	}
-	#button_commit{
-		display: block;
-		float: inherit;
-	}
-	#msg_wrong{
-		display: none;
-	}
-	#msg_correct{
-		display: none;
-	}
-	 #mapid {   
-	    height: 500px;  
-	    width:100%;
-	 }  
-    </style>
+    
 				<!-- the following links add the CSS and Javascript required for the Leaflet Map -->
 					<link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css"
 					integrity="sha512-wcw6ts8Anuw10Mzh9Ytw4pylW8+NAD4ch3lqm9lzAsTxg0GFeJgoAtxuCLREZSC5lUXdVyo/7yfsqFjQ4S+aKw=="crossorigin=""/>
@@ -140,7 +70,7 @@
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
       <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
         <div class="mdl-layout__header-row">
-          <span class="mdl-layout-title">Home</span>
+          <span class="mdl-layout-title">Updates</span>
           <div class="mdl-layout-spacer"></div>
           
         </div>
@@ -149,61 +79,44 @@
         <header class="demo-drawer-header">
           <img src="images/user.jpg" class="demo-avatar">
           <div class="demo-avatar-dropdown">
-            <span>ucesbz0@ucl.ac.uk</span>
+            <span>hello@example.com</span>
             <div class="mdl-layout-spacer"></div>
             <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
               <i class="material-icons" role="presentation">arrow_drop_down</i>
               <span class="visuallyhidden">Accounts</span>
             </button>
             <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
-              <li class="mdl-menu__item">ucesbz0@ucl.ac.uk</li>
+              <li class="mdl-menu__item">hello@example.com</li>
+              <li class="mdl-menu__item">info@example.com</li>
               <li class="mdl-menu__item"><i class="material-icons">add</i>Add another account...</li>
             </ul>
           </div>
         </header>
         <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-          <a class="mdl-navigation__link" href="#"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
+          <a class="mdl-navigation__link" href="index.html"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
           <a class="mdl-navigation__link" href="https://moodle.ucl.ac.uk/mod/forum/view.php?id=2259367"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">forum</i>Forums</a>
-          <a class="mdl-navigation__link" href="updates.html"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">flag</i>Updates</a>
+          <a class="mdl-navigation__link" href="#"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">flag</i>Updates</a>
         </nav>
       </div>
       <div class="mdl-layout__content mdl-color--grey-100">
         <div class="mdl-grid demo-content">
 		   <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid" >
-		   <div id="mapid"></div>
+		   <div>
+		   	这里写文字
+		   	
+		   </div>
 		   
 			
           </div>
           </div> 
         </div>
       </div>
-    <div class="poplayer" id="poplayer">
-       
-      	<div class="popwindow">
-      		
-      		<h4 id="info_question">what are com from?</h4>
-      		<div class="optiondiv"><input type="radio" name="answer" value="1" ><span id="info_option1">ddd1</span></div>
-      		<div class="optiondiv"><input type="radio" name="answer" value="2"><span id="info_option2">ddd2</span></div>
-      		<div class="optiondiv"><input type="radio" name="answer" value="3"><span id="info_option3">ddd3</span></div>
-      		<div class="optiondiv"><input type="radio" name="answer" value="4"><span id="info_option4">ddd4</span></div>
-      		<div style="margin-top:20px">
-      			<div style="float: left"><span class="font-red" id="msg_wrong">Wrong</span><span class="font-green" id="msg_correct">Correct</span></div>
-      			<div style="float: right;"><span  class="button" id="button_commit" onclick="commitAnswer()" >Commit</span></div>
-      			<div style="float: right;"><span  class="button" id="button_ok" onclick="closePopWindow()">Ok</span></div>
-      			
-      		</div>
-      		
-      	</div>
-      </div>
+    
     <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
       <script type="text/javascript" src="cordova.js"></script>
     <script src="./js/index.js"></script> 
-    <script src="./js/appActivity.js"></script> 
-    <script src="./js/uploadData.js"></script> 
     <script>
-    		app.initialise();
-    		trackLocation();
-    		loadQuestions();
+    		app.initialize();
 	</script>
   </body>
 </html>

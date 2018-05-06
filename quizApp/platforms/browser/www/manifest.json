@@ -1,10 +1,10 @@
 {
   "background_color": "#FFF",
   "display": "standalone",
-  "name": "Quiz App",
-  "short_name": "Quiz App",
+  "name": "helloworld",
+  "short_name": "helloworld",
   "version": "com.phonegap.helloworld",
-  "description": "Quiz App",
+  "description": "Hello World sample application that responds to the deviceready event.",
   "author": "PhoneGap Team",
   "icons": [],
   "start_url": "index.html"

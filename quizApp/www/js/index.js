@@ -16,7 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-var phoneid=null;//设备号
+ 
+ //phone id
+var phoneid=null;
 var app = {
     // Application Constructor
     initialise: function() {
@@ -34,7 +36,7 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-    		//获取设备号
+    		//get phone id
     	 	phoneid=device.uuid;
     },
     

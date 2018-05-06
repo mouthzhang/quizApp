@@ -7,59 +7,59 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
 			id: 'mapbox.streets'
 }).addTo(mymap);
 
-var allQuestions=null;//全部问题
-var currentQuestion=null;//当前问题
-var maxdistance=0.1;//100m,最大距离，超出这个距离不弹出问题
+var allQuestions=null;//all questions
+var currentQuestion=null;//current question
+var maxdistance=0.005;//proximity alert 5m,no popup beyond this distance
 
 /**
- * 跟踪用户地理位置
+ * tracking user geolocation
  * @returns
  */
 function trackLocation() {
 	navigator.geolocation.watchPosition(showPosition);
 }
 /**
- * 显示用户地理位置
+ * show user geolocation
  * @param position
  * @returns
  */
 function showPosition(position) {
 	
-	//地图移动到当前用户所在位置
+	//map centred at current user location
 	 mymap.panTo([position.coords.latitude, position.coords.longitude], {animate:true});
-	 //更新marker的位置
+	 //update marker location
 	 curpositonMaker.setLatLng(L.latLng(position.coords.latitude, position.coords.longitude));
 	 
-	 //如果有问题并且当前没有弹出问题
+	 //if user within the proximity aleart range but no question pop up, pop the closest question
 	 if(allQuestions!=null&&currentQuestion==null)
 	{
-		 //所有问题对应的位置与用户当前位置的最小距离
+		 //minimum distance from user coord to all question points
 		var mindistance=null;
 		
 		var index=null;
 		for(var i=0;i<allQuestions.length;i++)
 		{
 			var question=allQuestions[i];
-			//计算距离
+			//calculate Distance
 			var distance = calculateDistance(position.coords.latitude, position.coords.longitude, question.lat,question.lng, 'K');
 			if(distance<=maxdistance&&(mindistance==null||distance<mindistance))
 			{
-				//当前距离小于等于maxdistance，并且是最小距离，修改最小距离
+				//if new distance is within the proximity aleart range, change the question which satisfy the new distance
 				mindistance=distance;
 				index=i;
 			}
 		}
 		if(index!=null)
 		{
-			//在规定距离范围内有问题
+			//question point within proximity aleart distance
 			
-			//获取当前问题
+			//get the question
 			var q=allQuestions[index];
-			//设置当前问题
+			//get ready the question
 			currentQuestion=q;
-			//把已弹出的问题从所有问题中移除，避免多次弹出
+			//avoid repeating same question
 			allQuestions.splice(index,1);
-			//弹出问题
+			//popup question
 			showQuestion(q);
 		}
 	}
@@ -84,7 +84,7 @@ function calculateDistance(lat1, lon1, lat2, lon2, unit) {
 	 return dist;
 }
 /**
- * 获取用户选中的答案
+ * get selected answer
  * @returns
  */
 function getSelectAnswer()
@@ -100,7 +100,7 @@ function getSelectAnswer()
 	return -1;
 }
 /**
- * 取消选中的答案
+ * un-select question
  * @returns
  */
 function unSelectAnswer()
@@ -116,46 +116,46 @@ function unSelectAnswer()
 	return -1;
 }
 /**
- * 提交答案
+ * commit answer
  * @returns
  */
 function commitAnswer()
 {
-	//获取用户选中的答案
+	//get selected question
 	var useranswer=getSelectAnswer();
 	if(useranswer==-1)
 	{
-		alert("请选择答案");
+		alert("Please choose the answer for the question");
 		return;
 	}
-	//上传答案到服务器
+	//upload to server
 	uploadAnswer(useranswer,function(){
-		//禁止选择
+		//close the question
 		disabledOptions(true);
-		//隐藏commit按钮
+		//hide commite buton
 		hide("button_commit");
-		//显示ok按钮
+		//show ok button
 		show("button_ok");
-		//显示答案
+		//show the result
 		showResult(currentQuestion.answer,useranswer);
 	});
 }
 /**
- * 上传答案
+ * upload answer
  * @param answer
  * @param callback
  * @returns
  */
 function uploadAnswer(answer,callback)
 {
-	//判断用户选则的答案是否正确，1:正确 0:不正确
+	//answer right or wrong，1:correct 0:wrong
 	var correct=answer==currentQuestion.answer?1:0;
-	//上传到服务器
+	//upload to server
 	postData("commitanswer","phoneid="+phoneid+"&questionid="+currentQuestion.id+"&answer="+answer+"&correct="+correct,callback);
 	
 }
 /**
- * 关闭弹出
+ * close popup
  */
 function closePopWindow()
 {
@@ -163,7 +163,7 @@ function closePopWindow()
 	hide("poplayer");
 }
 /**
- * 禁用或启用选择
+ * disable options
  * @param disabled
  * @returns
  */
@@ -177,44 +177,44 @@ function disabledOptions(disabled)
 	}
 }
 /**
- * 显示结果
- * @param answer    正确答案
- * @param useranswer  用户答案
+ * show result
+ * @param answer    correct answer
+ * @param useranswer  selected answer
  * @returns
  */
 function showResult(answer,useranswer)
 {
-	//获取正确选项
+	//get correct answer
 	var correctanswer=document.getElementById("info_option"+answer);
-	//设置正确选项的字体为绿色
+	//set correct one green
 	correctanswer.className="font-green";
 	if(answer==useranswer)
 	{
-		//答对了，显示correct提示
+		//answer correctly, show correct
 		show("msg_correct");
 	}
 	else 
 	{
-		//答错了，显示wrong提示
+		//other wise, show wrong 
 		show("msg_wrong");
 		
-		//获取用户选中的选项
+		//get selected answer
 		var selectedoption=document.getElementById("info_option"+useranswer);
-		//设置用户选中的选项的字体为红色
+		//set the font red
 		selectedoption.className="font-red";
 	}
 }
 /**
- * 显示问题
+ * show question
  * @param question
  * @returns
  */
 function showQuestion(question)
 {
-	//显示问题弹窗
+	//show popup
 	show("poplayer");
 	
-	//显示问题信息
+	//show question and choices
 	document.getElementById("info_question").innerHTML=question.question;
 	document.getElementById("info_option1").innerHTML="A:"+question.option1;
 	document.getElementById("info_option2").innerHTML="B:"+question.option2;
@@ -222,7 +222,7 @@ function showQuestion(question)
 	document.getElementById("info_option4").innerHTML="D:"+question.option4;
 	
 	
-	//恢复选项的颜色为黑色
+	//restore font black
 	document.getElementById("info_option1").className="font-black";
 	document.getElementById("info_option2").className="font-black";
 	document.getElementById("info_option3").className="font-black";
@@ -234,34 +234,34 @@ function showQuestion(question)
 	hide("button_ok");
 	show("button_commit");
 	
-	//取消选中
+	//un-select
 	unSelectAnswer();
 	
-	//设置选项可选
+	//set options available to choose
 	disabledOptions(false);
 }
 /**
-显示指定id的元素
+show the element for certain id
 */
 function show(id)
 {
-	//根据id获取元素
+	//get element by id
 	var elm=document.getElementById(id);
 	if(elm!=null)
-		elm.style.display="block";//显示元素
+		elm.style.display="block";//show element
 }
 /**
-隐藏指定id的元素
+hide the element for certain id
 */
 function hide(id)
 {
-	//根据id获取元素
+	//get element by id
 	var elm=document.getElementById(id);
 	if(elm!=null)
-		elm.style.display="none";//隐藏元素
+		elm.style.display="none";//hide element
 }
 /**
- * //在地图上显示问题对应的marker
+ * //show marker on the map
  * @param questions
  * @returns
  */
@@ -274,34 +274,34 @@ function showQuestionMarker(questions)
 	for(var i=0;i<questions.length;i++)
 	{
 		var question=questions[i];
-		//把问题所在的坐标在地图上用marker展示出来
+		//show all question marker on the map
 		L.marker([question.lat,question.lng], {icon:markerPink}).addTo(mymap);
 		
 	}
 }
 /**
- * 获取问题
+ * get question
  * @param callback
  * @returns
  */
 function getQuestions(callback)
 {
-	//从服务器获取问题
+	//get question from server
 	getData("getallquestions",function(data){
 		var questions=JSON.parse(data);
 		callback(questions);
 	});
 }
 /**
- * 获取所有问题
+ * get all questions
  * @returns
  */
 function loadQuestions()
 {
 	getQuestions(function(data){
-		//data为所有问题
+		//get data for all question
 		allQuestions=data;
-		//在地图上显示问题对应的marker
+		//match the question marker with data
 		showQuestionMarker(data);
 	})
 }
