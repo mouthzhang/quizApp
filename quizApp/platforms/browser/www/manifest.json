@@ -1,0 +1,11 @@
+{
+  "background_color": "#FFF",
+  "display": "standalone",
+  "name": "Quiz App",
+  "short_name": "Quiz App",
+  "version": "com.phonegap.helloworld",
+  "description": "Quiz App",
+  "author": "PhoneGap Team",
+  "icons": [],
+  "start_url": "index.html"
+}
