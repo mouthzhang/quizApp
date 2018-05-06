@@ -49,81 +49,84 @@
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-light_blue.min.css">
     <link rel="stylesheet" href="styles.css">
     <style>
-     #view-source {
-      position: fixed;
-      display: block;
-      right: 0;
-      bottom: 0;
-      margin-right: 40px;
-      margin-bottom: 40px;
-      z-index: 900;
-    }
-    .font-blue
+    body
     {
-    		color:rgb(20, 165, 255);
+    	 	padding:0;
+    	 	margin:0;
     }
-     .font-black
-    {
-    		color:black;
-    }
-    .font-gray
-    {
-    		color:gray;
-    }
-      .font-white
-    {
-    		color:white;
-    }
-    .button-blue
-    {	
-    		background-color: rgb(20, 165, 255);
+  #mapid {   
+	    height: 100%;  
+	    width: 100%;  
+	    position: flex;  
+	    top: 0px;  
+	    bottom: 0px;  
+	    z-index: 0;  
+		overflow:hidden; word-break:break-all;
+	 }  
+	 .poplayer
+	 {
+	 	height: 100%;  
+	    width: 100%;  
+	    position: absolute;  
+	    top: 0px;  
+	    bottom: 0px;  
+	    z-index: 999;  
+		overflow:hidden; word-break:break-all;
+		display: none;
+	
+	 }
+	 .popwindow
+	 {
+	 	background-color: #FFF;
+		width: 70%;
+		height: auto;
+		border-radius: 4px;
+		overflow: hidden;
+		margin:0 auto;
+		margin-top:100px;
+		padding:30px;
+
+	 }
+	 .optiondiv
+	 {
+	 	padding:5px;
+	 }
+	 .button
+    	{
     		color: white;
-    }
-     .button-red
-    {	
-    		background-color: red;
-    		color: white;
-    }
-    .layout-right
-    {
-    		float: right;
-    }
-    .warp
-    {
-    		width: 100%;
-    }
-    	.td-first
-    	{
-    		border-top: 1px solid rgb(232, 232, 232);
-    		
-    	}
-    	.td
-    	{
-    		border-bottom: 1px solid rgb(232, 232, 232);
-    	}
-    	td
-    	{
-    		padding:10px;
-    	
-    	}
-    	table
-    	{
-    		width: 100%;
-    	}
-    	.toolbar
-    	{
-    			
-    			width: 100%;
-    			padding-top:5px;
-    			padding-bottom:5px;
-    	}
-    	.toolbar-button
-    	{
-    		color: rgb(194, 194, 194);
     		cursor: pointer;
+    		padding:10px 20px;
+    		border-radius: 2px;
+    		background: rgb(76, 171, 255);
     	}
-    	.toolbar-button:hover {
-		color:gray;
+    	.button:hover {
+		background: rgb(78, 200, 255);
+	}
+	.font-red
+	{
+		color:red;
+	}
+	.font-green
+	{
+		color:green;
+	}
+	.font-black
+	{
+		color:black;
+	}
+	#button_ok{
+		display: none;
+		float: inherit;
+	}
+	#button_commit{
+		display: block;
+		float: inherit;
+	}
+	#msg_wrong{
+		display: none;
+	}
+	#msg_correct{
+		display: none;
 	}
     </style>
 				<!-- the following links add the CSS and Javascript required for the Leaflet Map -->
@@ -144,8 +147,8 @@
 					<script src="./js/leaflet.awesome-markers.js">
 					</script>			
   </head>
-  <body >
-	<div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+  <body>
+    <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
       <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
         <div class="mdl-layout__header-row">
           <span class="mdl-layout-title">Home</span>
