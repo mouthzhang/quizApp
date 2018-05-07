@@ -13,12 +13,12 @@ The index.html, mainly is the appearance of the app with few script which is mor
 The index.html has some style settings for the pop up window, the colour of the font, the button appearance and the map display size. The displaying text, the outside link and the connection to other web page is in the <body>.
 There is also a pop up window example in the index.html which can let the future question from the points follow the same style.
 
-
-
-<script> app.initialise is in /quizApp/www/js/index.js, which is for start the app and get the id of the phone.
-<script> trackLocation is to track the user location in real time which is in /quizApp/www/js/appActivity.js
-<script> loadQuestions is also in /quizApp/www/js/appActivity.js, this is to load the question from server to the phone.
+app.initialise is in /quizApp/www/js/index.js, which is for start the app and get the id of the phone.
   
+TrackLocation under  is to track the user location in real time which is in /quizApp/www/js/appActivity.js
+
+loadQuestions is also in /quizApp/www/js/appActivity.js, this is to load the question from server to the phone.
+
 The code in /quizApp/www/js/appActivity.js is a series of procedures which allows the quiz app to be functional.
 From tracking user location, showing on the map, calculate the distance from user to POI and whether the if it satisfy the alert setting.
 It also gets the questions from server, puts the questions in presentable form and order, judges if the answers are correct.
